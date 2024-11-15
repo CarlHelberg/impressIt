@@ -1,5 +1,5 @@
 (function () {
-  const appletId = 'mood-applet';
+  const appletId = 'impressit';
   const dbEndpoint = 'https://your-database-endpoint.com/feedback'; // Replace with your database endpoint
   const currentUrl = window.location.href;
   const iconsPath = './icons/'; // Adjust this path based on where the icons folder is relative to the script
@@ -23,7 +23,7 @@
     z-index: 1000;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     font-family: Arial, sans-serif;
     cursor: pointer;
     padding: 5px;
@@ -35,7 +35,7 @@
     iconElement.src = `${iconsPath}${src}`;
     iconElement.alt = alt;
     iconElement.style.cssText = `
-      margin: 2px;
+      margin: 7%;
       cursor: pointer;
       ${customStyle || ''}
     `;
@@ -76,10 +76,9 @@ customStyle: 'width: 24px; height: 24px; position: relative; border-radius: 50%;
   expandButton.textContent = '✍️';
   expandButton.style.cssText = `
     font-size: 10px;
-    margin-left: 5px;
-    margin-right: -30px;
     position: relative;
-    top: -10px;
+    bottom: -45%;
+    left: -48%;
     cursor: pointer;
   `;
 
@@ -111,7 +110,7 @@ customStyle: 'width: 24px; height: 24px; position: relative; border-radius: 50%;
   infoIcon.textContent = 'ℹ️';
   infoIcon.style.cssText = `
     font-size: 10px;
-    margin-left: 5px;
+    margin-left: -10px;
     position: relative;
     top: -25px;
     cursor: pointer;
@@ -185,11 +184,13 @@ customStyle: 'width: 24px; height: 24px; position: relative; border-radius: 50%;
       `box-shadow: 0 4px 6px -3px rgba(0, 0, 0, 0.9);
        border-radius: 50%;
        width: 24px; height: 24px; position: relative;
-       opacity: 1;`
+       opacity: 1;
+       margin: 7%;`
       :
       `opacity: 0.5;
        border-radius: 50%;
-       width: 24px; height: 24px; position: relative;`
+       width: 24px; height: 24px; position: relative;
+       margin: 7%;`
     });
   }
 
