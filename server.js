@@ -50,6 +50,23 @@ app.get('/api/dev', (req, res) => {
     });
 });
 
+function getDb() {
+  fetch(dbEndpoint, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': "*"
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('Fetched data:', data);
+      alert(JSON.stringify(data, null, 2));
+    })
+    .catch((error) => console.error('Error:', error));
+}
+
+
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);

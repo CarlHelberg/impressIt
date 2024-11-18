@@ -200,7 +200,7 @@ function sendFeedback() {
   const message = textArea.value === null ? "" : textArea.value;
 
   const payload = { currentFeeling, message, currentUrl };
-    getDb();
+
   fetch(dbEndpoint, {
     method: 'POST',
     headers: {
@@ -215,23 +215,6 @@ function sendFeedback() {
     })
     .catch((error) => console.error('Error:', error));
 }
-
-function getDb() {
-  fetch(dbEndpoint, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': "*"
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log('Fetched data:', data);
-      alert(JSON.stringify(data, null, 2));
-    })
-    .catch((error) => console.error('Error:', error));
-}
-
 
   // Load the last selected icon
   (function loadLastFeedback() {
