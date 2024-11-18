@@ -13,10 +13,10 @@
   applet.id = appletId;
   applet.style.cssText = `
     position: fixed;
-    bottom: 20px;
+    bottom: 80px;
     right: 20px;
     width: 150px;
-    height: 60px;
+    height: 48px;
     background: #f3f3f3;
     border: 1px solid #ddd;
     border-radius: 10px;
@@ -38,6 +38,7 @@
     iconElement.style.cssText = `
       margin: 7%;
       cursor: pointer;
+      bottom: -15%;
       ${customStyle || ''}
     `;
     iconElement.addEventListener('click', onClick);
@@ -84,6 +85,7 @@ customStyle: 'width: 24px; height: 24px; position: relative; border-radius: 50%;
   `;
 
   const textArea = document.createElement('textarea');
+
   textArea.style.cssText = `
     display: none;
     position: absolute;
@@ -102,18 +104,17 @@ customStyle: 'width: 24px; height: 24px; position: relative; border-radius: 50%;
     textArea.style.display = textArea.style.display === 'none' ? 'block' : 'none';
   });
 
-  applet.appendChild(expandButton);
+//  applet.appendChild(expandButton);
   document.body.appendChild(applet);
   document.body.appendChild(textArea);
 
   // Tooltip
   const infoIcon = document.createElement('span');
-  infoIcon.textContent = 'ℹ️';
+  infoIcon.textContent = 'Do you like this page?';
   infoIcon.style.cssText = `
     font-size: 10px;
-    margin-left: -10px;
-    position: relative;
-    top: -25px;
+    position: absolute;
+    top: 3px;
     cursor: pointer;
   `;
 
@@ -186,12 +187,14 @@ customStyle: 'width: 24px; height: 24px; position: relative; border-radius: 50%;
        border-radius: 50%;
        width: 24px; height: 24px; position: relative;
        opacity: 1;
-       margin: 7%;`
+       margin: 7%;
+       bottom: -15%;`
       :
       `opacity: 0.5;
        border-radius: 50%;
        width: 24px; height: 24px; position: relative;
-       margin: 7%;`
+       margin: 7%;
+       bottom: -15%;`
     });
   }
 
