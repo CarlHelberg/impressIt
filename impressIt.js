@@ -1,6 +1,7 @@
 (function () {
   const appletId = 'impressit';
-  const dbEndpoint = 'https://your-database-endpoint.com/feedback'; // Replace with your database endpoint
+  const dbEndpoint = 'http://localhost:3000/api/dev'; // Point to the backend server
+
   const currentUrl = window.location.href;
   const iconsPath = './icons/'; // Adjust this path based on where the icons folder is relative to the script
 
@@ -118,7 +119,7 @@ customStyle: 'width: 24px; height: 24px; position: relative; border-radius: 50%;
 
   const infoToolTip = document.createElement('div');
   infoToolTip.textContent =
-    'Please select how you feel about the current page you\'re on. The only data collected is the emoji and the page address.';
+    'Select how you feel about this page. We only collect the emoji and the page address.';
   infoToolTip.style.cssText = `
     display: none;
     position: absolute;
@@ -195,24 +196,42 @@ customStyle: 'width: 24px; height: 24px; position: relative; border-radius: 50%;
   }
 
   // Send feedback to the database
-  function sendFeedback() {
-    const message = textArea.value;
-    const payload = {
-      feeling: currentFeeling,
-      message,
-      url: currentUrl,
-    };
+function sendFeedback() {
+  const message = textArea.value === null ? "" : textArea.value;
 
-    fetch(dbEndpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    }).then(() => {
+  const payload = { currentFeeling, message, currentUrl };
+    getDb();
+  fetch(dbEndpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': "*",
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => response.json())
+    .then(() => {
       alert('Feedback submitted!');
-    });
-  }
+    })
+    .catch((error) => console.error('Error:', error));
+}
+
+function getDb() {
+  fetch(dbEndpoint, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': "*"
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('Fetched data:', data);
+      alert(JSON.stringify(data, null, 2));
+    })
+    .catch((error) => console.error('Error:', error));
+}
+
 
   // Load the last selected icon
   (function loadLastFeedback() {

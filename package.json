@@ -1,0 +1,26 @@
+{
+  "name": "impressit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "impressIt.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CarlHelberg/impressIt.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CarlHelberg/impressIt/issues"
+  },
+  "homepage": "https://github.com/CarlHelberg/impressIt#readme",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "mysql2": "^3.11.4"
+  }
+}
