@@ -8,6 +8,32 @@
   // Check if the applet already exists on the page
   if (document.getElementById(appletId)) return;
 
+
+const checkmark = document.createElement("div");
+            checkmark.classList.add("checkmark");
+            checkmark.textContent = "✔"; // Checkmark symbol
+
+            // Style the checkmark overlay
+            checkmark.style.cssText = `
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 20px;
+                font-weight: bold;
+                color: white;
+                background-color: rgba(0, 255, 0, 0.8); /* Green with 80% opacity */
+                border-radius: 50%;
+                opacity: 1;
+                z-index: 1000;
+                transition: opacity 2s ease-out;
+            `;
+
+
   // Create the applet container
   const applet = document.createElement('div');
   applet.id = appletId;
@@ -21,7 +47,7 @@
     border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
+    z-index: 500;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -53,6 +79,7 @@
     onClick: () => handleIconClick('happy'),
   });
 
+happyIcon.appendChild(checkmark);
   // Neutral Icon
   const neutralIcon = createIcon({
     src: 'neutral.png',
@@ -180,23 +207,71 @@ customStyle: 'width: 24px; height: 24px; position: relative; border-radius: 50%;
   }
 
   // Highlight the selected icon
-  function highlightIcon(selectedFeeling) {
+function highlightIcon(selectedFeeling) {
+    // Iterate over the icons
     [happyIcon, neutralIcon, unhappyIcon].forEach((icon) => {
-      icon.style.cssText = icon.alt === selectedFeeling ?
-      `box-shadow: 0 4px 6px -3px rgba(0, 0, 0, 0.9);
-       border-radius: 50%;
-       width: 24px; height: 24px; position: relative;
-       opacity: 1;
-       margin: 7%;
-       bottom: -15%;`
-      :
-      `opacity: 0.5;
-       border-radius: 50%;
-       width: 24px; height: 24px; position: relative;
-       margin: 7%;
-       bottom: -15%;`
+        // Reset styles for all icons
+        icon.style.cssText = `
+            width: 24px;
+            height: 24px;
+            position: relative;
+            border-radius: 50%;
+            opacity: ${icon.alt === selectedFeeling ? '1' : '0.5'};
+            margin: 7%;
+            bottom: -15%;
+        `;
+
+        // Handle the selected icon
+        if (icon.alt === selectedFeeling) {
+
+            // Create a new checkmark overlay
+            const checkmark = document.createElement("div");
+            checkmark.classList.add("checkmark");
+            checkmark.textContent = "✔"; // Checkmark symbol
+
+            // Style the checkmark overlay
+            checkmark.style.cssText = `
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 20px;
+                font-weight: bold;
+                color: white;
+                background-color: rgba(0, 255, 0, 0.8); /* Green with 80% opacity */
+                border-radius: 50%;
+                opacity: 1;
+                z-index: 1000;
+                transition: opacity 2s ease-out;
+            `;
+
+            // Append the checkmark to the icon's parent element
+            icon.parentElement.appendChild(checkmark);
+
+            // Trigger fade-out animation
+            setTimeout(() => {
+                checkmark.style.opacity = "0";
+            }, 0);
+
+            // Remove the checkmark after the fade-out
+            setTimeout(() => {
+                checkmark.remove();
+            }, 2000);
+        } else {
+            // Remove any lingering checkmarks from unselected icons
+            const existingCheckmark = icon.parentElement.querySelector(".checkmark");
+            if (existingCheckmark) {
+                existingCheckmark.remove();
+            }
+        }
     });
-  }
+}
+
+
 
   // Send feedback to the database
 function sendFeedback() {
